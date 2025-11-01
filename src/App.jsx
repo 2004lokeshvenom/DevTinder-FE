@@ -1,20 +1,25 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Body from './Body'
-import Login from './Login'
-import Signup from './Signup'
+import Body from './components/Body'
+import Signup from './components/Signup'
+import LoginPage from './components/LoginPage'
+import AppStore from './Utils/AppStore'
+import { Provider } from 'react-redux'
+import Home from './components/Home'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Body />}>
-          <Route path="/" element={<h1 className="flex items-center justify-center text-3xl font-bold">hello this is default case</h1>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={AppStore}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Body />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }
 
