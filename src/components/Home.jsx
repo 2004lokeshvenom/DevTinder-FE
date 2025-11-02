@@ -1,26 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  const user = useSelector((state) => state.user)
-  const navigate = useNavigate()
+  
   return (
-    <div>
-      {user ? (
-        <>
-          <div>Home welcome email is {user?.data?.email}</div>
-          <div>
-            Home welcome full name is {user?.data?.firstName} {user?.data?.lastName}
-          </div>
-          <div>Home welcome age is {user?.data?.age}</div>
-        </>
-      ) : (
-        <>
-          <div>please login first to home here</div>
-          <button onClick={() => navigate('/login')} className="bg-base-200 border-base-300 rounded-box border p-4">Login</button>
-        </>
-      )}
+    <div className="card bg-base-100 w-96 shadow-sm">
+      <figure className="px-10 pt-10">
+        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" className="rounded-xl" />
+      </figure>
+      <div className="card-body items-center text-center">
+        <h2 className="card-title">Card Title</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div className="card-actions">
+          <button className="btn btn-primary">Buy Now</button>
+        </div>
+      </div>
     </div>
   )
 }

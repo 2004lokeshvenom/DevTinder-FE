@@ -6,6 +6,7 @@ import LoginPage from './components/LoginPage'
 import AppStore from './Utils/AppStore'
 import { Provider } from 'react-redux'
 import Home from './components/Home'
+import Profile from './components/Profile'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
