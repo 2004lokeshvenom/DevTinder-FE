@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import BASE_URL from '../Utils/constants'
-import { useDispatch, useSelector } from 'react-redux'
-import UserCard from './UserCard'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { addUser } from '../Utils/UserSlice'
 
@@ -38,22 +37,10 @@ const EditProfile = ({ user }) => {
           </div>
 
           <label className="label">first name</label>
-          <input
-            type="firstName"
-            value={firstName}
-            className="input"
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Enter your first name"
-          />
+          <input type="text" value={firstName} className="input" onChange={(e) => setFirstName(e.target.value)} placeholder="Enter your first name" />
 
           <label className="label">last name</label>
-          <input
-            type="lastName"
-            value={lastName}
-            className="input"
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Enter your last name"
-          />
+          <input type="text" value={lastName} className="input" onChange={(e) => setLastName(e.target.value)} placeholder="Enter your last name" />
 
           <label className="label">Age</label>
           <input type="age" value={age} className="input" onChange={(e) => setAge(e.target.value)} placeholder="Enter your Age" />
@@ -65,13 +52,7 @@ const EditProfile = ({ user }) => {
           </select>
 
           <label className="label">Photo Url</label>
-          <input
-            type="Photo Url"
-            value={photoUrl}
-            className="input"
-            onChange={(e) => setPhotoUrl(e.target.value)}
-            placeholder="Enter your photo url"
-          />
+          <input type="text" value={photoUrl} className="input" onChange={(e) => setPhotoUrl(e.target.value)} placeholder="Enter your photo url" />
 
           <fieldset className="fieldset">
             <legend className="fieldset-legend">About</legend>
@@ -83,8 +64,23 @@ const EditProfile = ({ user }) => {
           </button>
         </fieldset>
       </div>
-      <div>
-        <UserCard user={{ firstName, lastName, age, gender, photoUrl, about }} />
+
+      <div className="h-140 bg-base-300 w-90 shadow-sm rounded-xl">
+        <figure>
+          <img
+            src={photoUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAdAfaOIwWKxOsmQ54IvUovtzIo7z-VNCPjQ&s'}
+            alt="Person"
+            className="rounded-xl object-cover h-80 mx-auto block"
+          />
+        </figure>
+        <div className="card-body py-2">
+          <h1 className="card-title text-2xl">
+            Name: {firstName} {lastName}
+          </h1>
+          <p>Age :{age}</p>
+          <p>Gender: {gender}</p>
+          <p>About: {about}</p>
+        </div>
       </div>
       {toast && (
         <div className="toast toast-top toast-center">

@@ -25,15 +25,17 @@ const Connections = () => {
 
  return (
    <div className="p-6 bg-base-100 min-h-screen">
-     <h2 className="text-3xl font-bold mb-6 text-center">Connections</h2>
+     <h2
+       className="text-2xl mx-auto
+    w-fit mb-5 btn btn-secondary bg-base-300 flex justify-center">
+       Connections
+     </h2>
 
      {connections && connections.length > 0 ? (
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
          {connections.map((connection, index) => (
-           <div
-             key={index}
-             className="bg-base-300 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-             <img src={connection.photoUrl} alt="imageOfPerson" className="w-full h-56 object-cover" />
+           <div key={index} className="bg-base-300 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+             <img src={connection.photoUrl} alt="imageOfPerson" className="w-full h-100 object-cover" />
              <div className="p-5">
                <h3 className="text-xl font-semibold">
                  {connection.firstName} {connection.lastName}

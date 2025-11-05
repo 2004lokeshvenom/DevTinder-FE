@@ -15,6 +15,9 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
 
+  const goToSignup=()=>{
+    navigate("/signup")
+  }
   const handleLogin = async () => {
     if (!email || !password) {
       setErrMessage('Please enter both Email and Password')
@@ -63,6 +66,9 @@ const LoginPage = () => {
         <h1 className="text-red-500 text-sm my-1">{errMessage}</h1>
         <button className="btn btn-primary mt-1 w-full" onClick={handleLogin}>
           Login
+        </button>
+        <button onClick={goToSignup} className="btn mt-1 w-full">
+          Signup
         </button>
       </fieldset>
     </div>

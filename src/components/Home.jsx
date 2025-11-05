@@ -28,16 +28,28 @@ const Home = () => {
     fetchFeed()
   }, [])
 
+  if (!feed || feed.length <= 0)
+    return (
+      <>
+        <h1
+          className="text-2xl mx-auto
+    w-fit my-5 btn btn-secondary bg-base-300 flex justify-center">
+          Feed
+        </h1>
+        <h1 className="flex justify-center my-10">No new Users found</h1>
+      </>
+    )
   return (
-    <div className="flex justify-center my-10">
-      {feed && feed.length > 0 ? (
-        <UserCard user={feed[1]} />
-      ) : (
-        <div>
-          <p className="text-center mt-4">No feed available</p>
-        </div>
-      )}
-    </div>
+    <>
+      <h1
+        className="text-2xl mx-auto
+    w-fit my-5 btn btn-secondary bg-base-300 flex justify-center">
+        Feed
+      </h1>
+      <div className="flex justify-center my-5">
+        <UserCard user={feed[0]} />
+      </div>
+    </>
   )
 }
 

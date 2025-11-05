@@ -35,7 +35,11 @@ const Requests = () => {
 
   return (
     <div className="p-6 bg-base-100 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-center">Requests</h2>
+      <h2
+        className="text-2xl mx-auto
+    w-fit mb-5 btn btn-secondary bg-base-300 flex justify-center">
+        Requests
+      </h2>
 
       {requests && requests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

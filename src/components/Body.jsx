@@ -27,11 +27,11 @@ const Body = () => {
     fetchUser()
   }, [])
   return (
-    <>
+    <div className="pb-15">
       <NavBar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   )
 }
 
