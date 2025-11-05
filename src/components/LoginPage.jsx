@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [email, setEmailId] = useState('')
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)
-  const [errMessage,setErrMessage]=useState('');
+  const [errMessage, setErrMessage] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setErrMessage("Please enter both Email and Password");
+      setErrMessage('Please enter both Email and Password')
       return
     }
 
@@ -60,7 +60,7 @@ const LoginPage = () => {
             {showPass ? 'Hide' : 'Show'}
           </button>
         </div>
-        <h1 className='text-red-500 text-sm my-1'>{errMessage}</h1>
+        <h1 className="text-red-500 text-sm my-1">{errMessage}</h1>
         <button className="btn btn-primary mt-1 w-full" onClick={handleLogin}>
           Login
         </button>

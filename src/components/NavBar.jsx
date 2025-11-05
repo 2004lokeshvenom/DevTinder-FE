@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { removeUser } from '../Utils/UserSlice'
 import BASE_URL from '../Utils/constants'
 import axios from 'axios'
+import { removeFeed } from '../Utils/UserFeed'
 
 const NavBar = () => {
   const user = useSelector((state) => state.user)
@@ -14,6 +15,7 @@ const NavBar = () => {
     try {
       await axios.post(BASE_URL+"/logout",{},{withCredentials:true})
       dispatch(removeUser())
+      dispatch(removeFeed())
       navigate('/login')
     } catch (err) {
       console.log('logout failed' + err)
@@ -33,11 +35,7 @@ const NavBar = () => {
             <div className="w-10 rounded-full flex flex-col items-center text-center">
               {user && (
                 <>
-                  <img
-                    alt="User profile"
-                    className="rounded-full w-10 h-10"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
+                  <img alt="User profile" className="rounded-full w-10 h-10" src={user?.data?.photoUrl} />
                 </>
               )}
             </div>
@@ -50,10 +48,19 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <a>Settings</a>
+              <Link to="/connections" className="h-8 flex">
+                Connections
+              </Link>
             </li>
             <li>
-              <a onClick={handlelogout}>Logout</a>
+              <Link to="/requests" className="h-8 flex">
+                Requests
+              </Link>
+            </li>
+            <li>
+              <a onClick={handlelogout} className="h-8 flex">
+                Logout
+              </a>
             </li>
           </ul>
         </div>

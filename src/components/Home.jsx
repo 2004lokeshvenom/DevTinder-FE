@@ -1,19 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import UserCard from './UserCard'
+import axios from 'axios'
+import BASE_URL from '../Utils/constants'
+import { addFeed } from '../Utils/UserFeed'
 
 const Home = () => {
-  
+  const dispatch = useDispatch()
+  const feed = useSelector((state) => state.feed)
+  console.log(feed)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchFeed = async () => {
+      try {
+        const res = await axios.get(BASE_URL + '/feed', { withCredentials: true })
+        dispatch(addFeed(res?.data?.data))
+      } catch (err) {
+        console.log('Feed is not loading: ' + err.message)
+        if (err.response?.status === 401) {
+          navigate('/login')
+        }
+      }
+    }
+
+    fetchFeed()
+  }, [])
+
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
-      <figure className="px-10 pt-10">
-        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" className="rounded-xl" />
-      </figure>
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">Card Title</h2>
-        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-        <div className="card-actions">
-          <button className="btn btn-primary">Buy Now</button>
+    <div className="flex justify-center my-10">
+      {feed && feed.length > 0 ? (
+        <UserCard user={feed[1]} />
+      ) : (
+        <div>
+          <p className="text-center mt-4">No feed available</p>
         </div>
-      </div>
+      )}
     </div>
   )
 }
