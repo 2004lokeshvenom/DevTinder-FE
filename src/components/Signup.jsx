@@ -14,112 +14,221 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('')
   const [toast, setToast] = useState(false)
-  const navigate=useNavigate();
+  const navigate = useNavigate()
 
   const handleSignup = async () => {
-    try{
-      const res = await axios.post(BASE_URL + '/signup',{firstName,lastName,email,password,photoUrl,age,gender,about},{withCredentials:true})
-      navigate("/login")
+    try {
+      const defaultImageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAdAfaOIwWKxOsmQ54IvUovtzIo7z-VNCPjQ&s'
+      const finalPhotoUrl = photoUrl.trim() || defaultImageUrl
+
+      const res = await axios.post(
+        BASE_URL + '/signup',
+        { firstName, lastName, email, password, photoUrl: finalPhotoUrl, age, gender, about },
+        { withCredentials: true }
+      )
+      navigate('/login')
       setToast(true)
       setTimeout(() => {
         setToast(false)
       }, 3000)
-    }
-    catch(err){
+    } catch (err) {
       console.error('Signup error:', err)
-      setErrMessage('ERROR :' + err.response.data)
+      const errorMsg = err?.response?.data
+      setErrMessage('ERROR : ' + (typeof errorMsg === 'string' ? errorMsg : errorMsg?.message || err?.message || 'Signup failed. Please try again.'))
     }
   }
 
   return (
-    <div className="flex justify-center my-5">
-      <div className="flex justify-center mx-10">
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          <div className="fieldset-legend bg-base-200 border-base-300 flex justify-center text-xl my-0">
-            <h1>SignUp</h1>
+    <div className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200 flex items-center justify-center px-4 py-8 sm:py-12">
+      <div className="w-full max-w-6xl">
+        <div className="flex flex-col lg:flex-row justify-center items-start lg:items-center gap-8 lg:gap-12">
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+            <div className="w-full max-w-md">
+              <div className="bg-base-100 rounded-2xl shadow-2xl p-6 sm:p-8 border border-base-300">
+                <div className="text-center mb-6">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">Create Account</h1>
+                  <p className="text-base-content/70 text-sm">Join DevTinder and find your perfect match</p>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="label py-2">
+                        <span className="label-text font-medium text-sm">First Name</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={firstName}
+                        className="input input-bordered w-full focus:input-primary transition-colors"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="John"
+                      />
+                    </div>
+                    <div>
+                      <label className="label py-2">
+                        <span className="label-text font-medium text-sm">Last Name</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={lastName}
+                        className="input input-bordered w-full focus:input-primary transition-colors"
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="label py-2">
+                      <span className="label-text font-medium text-sm">Email</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      className="input input-bordered w-full focus:input-primary transition-colors"
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="john.doe@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label py-2">
+                      <span className="label-text font-medium text-sm">Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      value={password}
+                      className="input input-bordered w-full focus:input-primary transition-colors"
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="label py-2">
+                        <span className="label-text font-medium text-sm">Age</span>
+                      </label>
+                      <input
+                        type="number"
+                        value={age}
+                        className="input input-bordered w-full focus:input-primary transition-colors"
+                        onChange={(e) => setAge(e.target.value)}
+                        placeholder="25"
+                        min="18"
+                      />
+                    </div>
+                    <div>
+                      <label className="label py-2">
+                        <span className="label-text font-medium text-sm">Gender</span>
+                      </label>
+                      <select
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="select select-bordered w-full focus:select-primary transition-colors">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="label py-2">
+                      <span className="label-text font-medium text-sm">Photo URL</span>
+                    </label>
+                    <input
+                      type="url"
+                      value={photoUrl}
+                      className="input input-bordered w-full focus:input-primary transition-colors"
+                      onChange={(e) => setPhotoUrl(e.target.value)}
+                      placeholder="https://example.com/photo.jpg"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label py-2">
+                      <span className="label-text font-medium text-sm">About</span>
+                    </label>
+                    <textarea
+                      className="textarea textarea-bordered w-full h-24 focus:textarea-primary transition-colors resize-none"
+                      placeholder="Tell us about yourself..."
+                      value={about}
+                      onChange={(e) => setAbout(e.target.value)}></textarea>
+                  </div>
+
+                  {errMessage && (
+                    <div className="alert alert-error py-2">
+                      <span className="text-sm">{errMessage}</span>
+                    </div>
+                  )}
+
+                  <button
+                    className="btn btn-primary w-full mt-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all"
+                    onClick={handleSignup}>
+                    Sign Up
+                  </button>
+
+                  <div className="text-center mt-4">
+                    <p className="text-sm text-base-content/70">
+                      Already have an account?{' '}
+                      <button onClick={() => navigate('/login')} className="link link-primary font-medium">
+                        Login
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <label className="label">first name</label>
-          <input
-            type="firstName"
-            value={firstName}
-            className="input"
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Enter your first name"
-          />
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+            <div className="w-full max-w-sm">
+              <div className="bg-base-100 rounded-2xl shadow-2xl overflow-hidden border border-base-300 transform transition-all hover:scale-[1.02]">
+                <figure className="relative h-80 bg-gradient-to-br from-primary/20 to-secondary/20">
+                  <img
+                    src={photoUrl || 'https://i.pinimg.com/736x/40/f8/d9/40f8d909096a6dd04ad2e2a8598aa420.jpg'}
+                    alt="Profile Preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAdAfaOIwWKxOsmQ54IvUovtzIo7z-VNCPjQ&s'
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                </figure>
 
-          <label className="label">last name</label>
-          <input
-            type="lastName"
-            value={lastName}
-            className="input"
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Enter your last name"
-          />
-          <label className="label">Email</label>
-          <input type="email" value={email} className="input" onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email" />
-          <label className="label">Password</label>
-          <input type="text" value={password} className="input" onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
-
-          <label className="label">Age</label>
-          <input type="age" value={age} className="input" onChange={(e) => setAge(e.target.value)} placeholder="Enter your Age" />
-
-          <label className="label">Gender</label>
-          <select value={gender} onChange={(e) => setGender(e.target.value)} className="select select-bordered w-full">
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-
-          <label className="label">Photo Url</label>
-          <input type="text" value={photoUrl} className="input" onChange={(e) => setPhotoUrl(e.target.value)} placeholder="Enter your photo url" />
-
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">About</legend>
-            <textarea className="textarea h-24" placeholder="about" value={about} onChange={(e) => setAbout(e.target.value)}></textarea>
-          </fieldset>
-          <h1 className="text-red-500 text-sm my-1">{errMessage}</h1>
-          <button className="btn btn-primary mt-1 w-full" onClick={handleSignup}>
-            SignUp
-          </button>
-        </fieldset>
-      </div>
-
-      <div className="max-w-sm w-full bg-base-300 rounded-2xl shadow-md hover:shadow-xl overflow-hidden">
-        <figure className="relative">
-          <img
-            src={photoUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAdAfaOIwWKxOsmQ54IvUovtzIo7z-VNCPjQ&s'}
-            alt="Profile"
-            className="w-full h-72 object-cover rounded-t-2xl"
-          />
-        </figure>
-
-        <div className="p-5">
-          <h2 className="text-xl font-semibold mb-2 py-2">
-            Name : {firstName} {lastName}
-          </h2>
-          <div className="space-y-3">
-            <h1>Age: {age}</h1>
-            <h1>Gender: {gender}</h1>
-            <div>
-              <h1
-                className="
-                text-sm leading-relaxed
-                overflow-auto
-                break-words whitespace-pre-wrap
-                
-              ">
-                About: {about}
-              </h1>
+                <div className="p-6">
+                  <h2 className="text-2xl font-bold mb-1">
+                    {firstName || 'First'} {lastName || 'Last'}
+                  </h2>
+                  <div className="divider my-3"></div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base-content/60 text-sm font-medium">Age:</span>
+                      <span className="text-base-content font-semibold">{age || 'N/A'}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-base-content/60 text-sm font-medium">Gender:</span>
+                      <span className="text-base-content font-semibold">{gender || 'N/A'}</span>
+                    </div>
+                    <div>
+                      <span className="text-base-content/60 text-sm font-medium block mb-1">About:</span>
+                      <p className="text-base-content text-sm leading-relaxed break-words whitespace-pre-wrap">
+                        {about || 'No description provided'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {toast && (
-        <div className="toast toast-top toast-center">
-          <div className="alert alert-success">
-            <span>SignUp Successfull</span>
+        <div className="toast toast-top toast-center z-50">
+          <div className="alert alert-success shadow-lg">
+            <span>SignUp Successful! Redirecting to login...</span>
           </div>
         </div>
       )}

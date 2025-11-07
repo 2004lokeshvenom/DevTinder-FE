@@ -17,19 +17,19 @@ const Body = () => {
       if (userData) return
       const user = await axios.get(BASE_URL + '/profile/view', { withCredentials: true })
       dispatch(addUser(user.data))
-      console.log("userfetched successfully")
-    } catch(err){
-      console.log('token is not found or request failed',err)
-      if(err.status==401)navigate('/login')
+    } catch (err) {
+      if (err.response?.status === 401) navigate('/login')
     }
   }
   useEffect(() => {
     fetchUser()
   }, [])
   return (
-    <div className="pb-15">
+    <div className="min-h-screen flex flex-col">
       <NavBar />
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   )
