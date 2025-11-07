@@ -45,7 +45,7 @@ const Requests = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {requests.map((request, index) => (
             <div key={index} className="bg-base-300 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src={request.fromUserId.photoUrl} alt="imageOfPerson" className="w-full h-56 object-cover" />
+              <img src={request.fromUserId.photoUrl} alt="imageOfPerson" className="w-full h-100 object-cover" />
               <div className="p-5">
                 <h3 className="text-xl font-semibold">
                   {request.firstName} {request.fromUserId.lastName}
