@@ -20,6 +20,9 @@ const Home = () => {
         if (err.response?.status === 401) {
           navigate('/login')
         }
+        else{
+          console.log("Error fetching feed:", err.message);
+        }
       }
     }
 
