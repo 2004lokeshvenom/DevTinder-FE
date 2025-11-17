@@ -9,7 +9,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import Connections from './components/connections'
 import Requests from './components/Requests'
-import Payments from './components/payments'
+import Payments from './components/Payments'
 
 const App = () => {
   return (
