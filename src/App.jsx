@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import Connections from './components/connections'
 import Requests from './components/Requests'
+import Payments from './components/payments'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Requests />} />
+            <Route path="/payments" element={<Payments/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
