@@ -265,7 +265,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👨‍💻 Author
 
-Built with ❤️ for developers by developers
+**Surisetti Lokesh Vanamayya**
 
 ## 🙏 Acknowledgments
 
