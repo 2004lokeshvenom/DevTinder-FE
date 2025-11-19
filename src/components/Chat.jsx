@@ -50,10 +50,8 @@ const Chat = () => {
 
   useEffect(() => {
     fetchChatMessages()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetUserId])
 
-  // Set other user info from connections redux state (if available)
   useEffect(() => {
     if (!connections || !Array.isArray(connections)) return
     const conn = connections.find((c) => c._id === targetUserId)
@@ -63,7 +61,6 @@ const Chat = () => {
     }
   }, [connections, targetUserId])
 
-  // Socket connection
   useEffect(() => {
     if (!userId || !targetUserId) return
 

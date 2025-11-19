@@ -30,7 +30,7 @@ const Payments = () => {
           withCredentials: true,
         }
       )
-      const { orderId, amount, currency, notes, keyId} = payment.data
+      const { orderId, amount, currency, notes, keyId } = payment.data
       const options = {
         key: keyId,
         amount,
